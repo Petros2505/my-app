@@ -4,14 +4,15 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-access-token' // Jenkins credentials ID for Docker Hub
         DOCKER_IMAGE = 'peto2505/my-app'
-        KUBECONFIG = "${GIT_COMMIT}" // Path to kubeconfig in Jenkins
+        // KUBECONFIG = "${GIT_COMMIT}" // Path to kubeconfig in Jenkins
+        GIT_HUB_URL = "https://github.com/Petros2505/my-app/tree/main"
     }
 
     stages {
         stage('Clone Repository') {
             steps {
                 // Clone the repository (optional if the Jenkins job already checks out code)
-                git url: 'https://your-repository-url.git'
+                git url: "${GIT_HUB_URL}"
             }
         }
         stage('Build Docker Image') {
@@ -32,7 +33,7 @@ pipeline {
                     // Login to Docker Hub
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
                         // Push the image
-                        sh 'docker push $DOCKER_IMAGE:${env.BRANCH_NAME}'
+                        sh 'docker push $DOCKER_IMAGE:${GIT_COMMIT}'
                     }
                 }
             }
