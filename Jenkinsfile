@@ -9,11 +9,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git url: "${GIT_HUB_URL}"
-            }
-        
         stage('Build Docker Image') {
             steps {
                 script {
