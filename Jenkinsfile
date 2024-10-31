@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'ubuntu' }
 
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-access-token' // Jenkins credentials ID for Docker Hub
